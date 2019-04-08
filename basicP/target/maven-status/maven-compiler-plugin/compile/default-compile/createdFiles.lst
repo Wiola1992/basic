@@ -1,0 +1,13 @@
+configuration\SecurityInitializer.class
+dto\UserFormDTO.class
+configuration\SecurityConfig.class
+configuration\SpringRootConfiguration.class
+services\UserService.class
+controller\UserController.class
+controller\FirstController.class
+controller\MainController.class
+configuration\WebConfig.class
+repository\UserRepository.class
+model\User.class
+configuration\AppInitializer.class
+configuration\DBContext.class
