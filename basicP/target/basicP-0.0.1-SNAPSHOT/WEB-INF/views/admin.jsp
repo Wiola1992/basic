@@ -10,6 +10,6 @@
  
 	Witaj administratorze :)
 	</br>
- 
+ <a href="logout">Wyloguj się </a> 
 </body>
 </html>

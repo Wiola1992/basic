@@ -8,7 +8,7 @@
 </head>
 <body>
  
-	Użytkownik został dodany. Zaloguj się.
- 
+	Użytkownik został dodany. 
+	<a href="login"> Zaloguj się.</a>
 </body>
 </html>

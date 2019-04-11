@@ -61,23 +61,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired 
     DataSource dataSource;
+    /*    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    	auth.inMemoryAuthentication()
+        .passwordEncoder(passwordEncoder)
+        .withUser("user").password(passwordEncoder.encode("123456")).roles("USER")
+        .and()
+        .withUser("admin").password(passwordEncoder.encode("123456")).roles("USER", "ADMIN");
+    }*/
  
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    //@Override
+    @Autowired
+    protected void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
     	
     	    auth.jdbcAuthentication().dataSource(dataSource)
  			.usersByUsernameQuery(
- 			"select login,password, enabled from shop_users where login=?")
+ 			"select username, password, enabled from shop_users where username=?")
  		.authoritiesByUsernameQuery(
- 			"select login, role from shop_users where login=?");
+ 			"select username, role from shop_users where username=?")
+ 		 .passwordEncoder(new BCryptPasswordEncoder());
     	
-   	
-    	
- 			/* auth.inMemoryAuthentication()
-         .passwordEncoder(passwordEncoder)
-         .withUser("user").password(passwordEncoder.encode("123456")).roles("USER")
-         .and()
-         .withUser("admin").password(passwordEncoder.encode("123456")).roles("USER", "ADMIN"); */
     }
  
     @Bean
@@ -90,9 +93,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
         .antMatchers("/login").permitAll()
         .antMatchers("/admin/**").hasRole("ADMIN")
-      //  .antMatchers("/**").hasAnyRole("ADMIN", "USER")
+        .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
         .and().formLogin()
         .and().logout().logoutSuccessUrl("/login").permitAll()
+        .and()
+        .exceptionHandling().accessDeniedPage("/accessDenied")
         .and().csrf().disable();
     } 
     

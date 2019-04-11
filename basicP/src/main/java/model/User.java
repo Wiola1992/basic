@@ -14,9 +14,9 @@ public class User {
 	@GeneratedValue
 	private long id;
 	
-	@Column(nullable = false, unique = true)
-	private String login;
-	private char[] password;
+	@Column(nullable = false, unique = true, name="username")
+	private String username;
+	private String password;
 	private String role;
 	private int enabled;
 	
@@ -30,15 +30,15 @@ public class User {
 		this.id = id;
 	}
 	public String getLogin() {
-		return login;
+		return username;
 	}
 	public void setLogin(String login) {
-		this.login = login;
+		this.username = login;
 	}
-	public char[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
-	public void setPassword(char[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 	public String getRole() {

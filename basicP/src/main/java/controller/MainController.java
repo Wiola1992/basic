@@ -11,12 +11,20 @@ public class MainController {
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public  String firstPage () {
 		return "glowny";
-		
+	}
+	
+	@RequestMapping(value="user", method=RequestMethod.GET)
+	public  String shop () {
+		return "user";
 	}
 	
 	@RequestMapping(value="admin", method=RequestMethod.GET)
 	public  String pageAdmin () {
 		return "admin";
-		
+	}
+	
+	@RequestMapping(value="accessDenied", method=RequestMethod.GET)
+	public  String accessDenied () {
+		return "accessDenied";
 	}
 }
