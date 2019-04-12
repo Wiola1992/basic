@@ -11,18 +11,40 @@
 </head>
 <body>
  
-	<form:form method="POST" modelAttribute="formLogin"  > 
+	<form:form method="POST" modelAttribute="user"  > 
 			<table border="1">
 				<tr>
+					<td> Imię:</td>
+					<td> <form:input path="firstName"/> </td>
+				  	<td>
+						<c:if test="${pageContext.request.method=='POST'}">
+							<form:errors path="firstName" />
+						</c:if>
+					</td>
+				</tr>
+				<tr>
 					<td>
-						Login:
+						Nazwisko:
 					</td>
 					<td>
-						<form:input path="login"/>
+						<form:input path="lastName"/>
 					</td>
 				  	<td>
 						<c:if test="${pageContext.request.method=='POST'}">
-							<form:errors path="login" />
+							<form:errors path="lastName" />
+						</c:if>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Email:
+					</td>
+					<td>
+						<form:input path="email"/>
+					</td>
+				  	<td>
+						<c:if test="${pageContext.request.method=='POST'}">
+							<form:errors path="email" />
 						</c:if>
 					</td>
 				</tr>
@@ -31,11 +53,24 @@
 						Hasło:
 					</td>
 					<td>
-						<form:input path="password"/>
+						<form:password path="password"/>
 					</td>
 				  	<td>
 						<c:if test="${pageContext.request.method=='POST'}">
 							<form:errors path="password" />
+						</c:if>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Potwierdzenie hasła:
+					</td>
+					<td>
+						<form:password  path="confirmPassword"/>
+					</td>
+				  	<td>
+						<c:if test="${pageContext.request.method=='POST'}">
+							<form:errors path="confirmPassword" />
 						</c:if>
 					</td>
 				</tr>

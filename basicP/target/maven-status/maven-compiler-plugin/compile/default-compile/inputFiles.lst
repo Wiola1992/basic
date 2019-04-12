@@ -2,6 +2,7 @@ C:\Users\Wiola\git\repository\basicP\src\main\java\model\User.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\DBContext.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\repository\UserRepository.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\WebConfig.java
+C:\Users\Wiola\git\repository\basicP\src\main\java\validation\EmailExistsException.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\controller\FirstController.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\controller\UserController.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\AppInitializer.java
@@ -10,4 +11,5 @@ C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\SecurityConfig.
 C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\SecurityInitializer.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\controller\MainController.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\SpringRootConfiguration.java
+C:\Users\Wiola\git\repository\basicP\src\main\java\validation\PasswordValidator.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\dto\UserFormDTO.java

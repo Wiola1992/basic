@@ -8,7 +8,8 @@
 </head>
 <body>
  
-	Witaj użytkowniku :)
+	Witaj użytkowniku :) </br>
+	Kliknij <a href="/basicP">tutaj</a> aby powrócić do strony głównej.
 	</br>
   <a href="logout">Wyloguj się</a>
 </body>

@@ -3,11 +3,13 @@ dto\UserFormDTO.class
 configuration\SecurityConfig.class
 configuration\SpringRootConfiguration.class
 services\UserService.class
+validation\PasswordValidator.class
 controller\UserController.class
 controller\FirstController.class
 controller\MainController.class
 configuration\WebConfig.class
 repository\UserRepository.class
+validation\EmailExistsException.class
 model\User.class
 configuration\AppInitializer.class
 configuration\DBContext.class
