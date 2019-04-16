@@ -9,6 +9,8 @@
 <body>
  
 	Użytkownik został dodany. 
+	
+	
 	<a href="login"> Zaloguj się.</a>
 </body>
 </html>

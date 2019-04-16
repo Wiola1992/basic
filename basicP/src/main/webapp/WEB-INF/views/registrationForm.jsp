@@ -10,6 +10,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	
  
 	<form:form method="POST" modelAttribute="user"  > 
 			<table border="1">
@@ -42,9 +44,11 @@
 					<td>
 						<form:input path="email"/>
 					</td>
-				  	<td>
+				  	<td> <strong> ${s}</strong>
 						<c:if test="${pageContext.request.method=='POST'}">
+						   
 							<form:errors path="email" />
+							
 						</c:if>
 					</td>
 				</tr>
@@ -58,6 +62,7 @@
 				  	<td>
 						<c:if test="${pageContext.request.method=='POST'}">
 							<form:errors path="password" />
+							 <form:errors path="" />
 						</c:if>
 					</td>
 				</tr>

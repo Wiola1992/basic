@@ -4,9 +4,12 @@ C:\Users\Wiola\git\repository\basicP\src\main\java\repository\UserRepository.jav
 C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\WebConfig.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\validation\EmailExistsException.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\controller\FirstController.java
+C:\Users\Wiola\git\repository\basicP\src\main\java\validation\PasswordMatches.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\controller\UserController.java
+C:\Users\Wiola\git\repository\basicP\src\main\java\validation\ValidEmail.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\AppInitializer.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\services\UserService.java
+C:\Users\Wiola\git\repository\basicP\src\main\java\validation\UserAlreadyExistException.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\SecurityConfig.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\SecurityInitializer.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\controller\MainController.java

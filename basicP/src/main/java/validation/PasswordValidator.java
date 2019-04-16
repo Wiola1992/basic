@@ -1,15 +1,21 @@
 package validation;
 
-import org.springframework.validation.Errors;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
 import dto.UserFormDTO;
 
-public class PasswordValidator {
+public class PasswordValidator implements ConstraintValidator<PasswordMatches, Object> {
+	
+	  @Override
+	    public void initialize(PasswordMatches constraintAnnotation) {       
+	    }
 
-	public void validate (UserFormDTO userDTO, Errors errors) {
-		if(!(userDTO.getConfirmPassword().equals(userDTO.getPassword()))){
-			errors.rejectValue("password", "nie pasujące hasło");
-		}
+	@Override
+	public boolean isValid(Object obj, ConstraintValidatorContext context) {
+		UserFormDTO userDTO = (UserFormDTO) obj;
+		
+		return userDTO.getConfirmPassword().equals(userDTO.getPassword());
 	}
 	
 }

@@ -74,12 +74,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     protected void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
     	
-    	    auth.jdbcAuthentication().dataSource(dataSource)
+    	/*    auth.jdbcAuthentication().dataSource(dataSource)
+    	 // .passwordEncoder(new BCryptPasswordEncoder())
  			.usersByUsernameQuery(
- 			"select firstName, lastName, password, enabled from shop_users where email=?")
+ 			"select username, password, enabled from shop_users where username=?")
  		.authoritiesByUsernameQuery(
- 			"select firstName, lastName, role from shop_users where email=?")
- 		 .passwordEncoder(new BCryptPasswordEncoder());
+ 			"select username, role from shop_users where username=?"); */
+    	
+    	 auth.jdbcAuthentication().dataSource(dataSource)
+	        .usersByUsernameQuery("select login, password, enabled"
+	            + " from shop_users where login=?")
+	        .authoritiesByUsernameQuery("select login, role"
+	            + " from shop_users where login=?")
+	        .passwordEncoder(new BCryptPasswordEncoder());
     	
     }
  
@@ -98,6 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and().logout().logoutSuccessUrl("/login").permitAll()
         .and()
         .exceptionHandling().accessDeniedPage("/accessDenied")
+       
         .and().csrf().disable();
     } 
     

@@ -21,18 +21,19 @@ public class UserService  {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
-	public User createUser(UserFormDTO userDto) throws EmailExistsException {
+	public User registerUser(UserFormDTO userDto) throws EmailExistsException {
 		
 		if (emailExists(userDto.getEmail())) {
 	        throw new EmailExistsException
 	          ("There is an account with that email adress: " + userDto.getEmail());
 	    }
+		
 		User user = new User();
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
+		//user.setPassword(userDto.getPassword());
 		user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-		//user.setPassword(userDto.getPassword().passwordEncoder(new BCryptPasswordEncoder()));
-		
+		//user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 		user.setEmail(userDto.getEmail());
 		user.setEnabled(1);
 		user.setRole("ROLE_USER");
@@ -41,7 +42,11 @@ public class UserService  {
 	}
 	
 	private boolean emailExists(final String email) {
-		return userDAO.findByEmail(email) !=null;
+		 User user = userDAO.findByEmail(email);
+	        if (user != null) {
+	            return true;
+	        }
+	        return false;
 	}
 	
 	   public Optional<User> getUserByID(final long id) {

@@ -14,9 +14,9 @@ public class User {
 	@GeneratedValue
 	private long id;
 	
-	@Column(nullable = false, unique = true)
 	private String firstName;
 	private String lastName;
+	@Column(nullable = false, unique = true, name="login")
 	private String email;
 	private String password;
 	private String role;

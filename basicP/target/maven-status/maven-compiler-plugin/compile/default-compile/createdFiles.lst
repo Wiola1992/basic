@@ -5,11 +5,14 @@ configuration\SpringRootConfiguration.class
 services\UserService.class
 validation\PasswordValidator.class
 controller\UserController.class
+validation\PasswordMatches.class
 controller\FirstController.class
+validation\ValidEmail.class
 controller\MainController.class
 configuration\WebConfig.class
 repository\UserRepository.class
 validation\EmailExistsException.class
+validation\UserAlreadyExistException.class
 model\User.class
 configuration\AppInitializer.class
 configuration\DBContext.class

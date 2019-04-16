@@ -7,6 +7,9 @@ import javax.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import validation.PasswordMatches;
+
+@PasswordMatches //(message = "Potwierdzenie hasła")
 public class UserFormDTO {
 	
 	@NotEmpty (message = "Podaj imię użytkownika")
@@ -20,7 +23,6 @@ public class UserFormDTO {
 	@NotEmpty (message = "Podaj email")
 	@Email
 	private String email;
-	
 	
 	@Size(min=5, message="Podaj minimum 5 znaków")
 	private String password;
