@@ -12,6 +12,7 @@
 <body>
 
 	
+ ${inf}
  
 	<form:form method="POST" modelAttribute="user"  > 
 			<table border="1">

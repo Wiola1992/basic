@@ -1,25 +1,45 @@
 package services;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import dto.UserFormDTO;
 import model.User;
+import model.VerificationToken;
 import repository.UserRepository;
+import repository.VerificationTokenRepository;
 import validation.EmailExistsException;
 
 @Service
 public class UserService  {
 	
 	@Autowired
-	UserRepository userDAO;
+	UserRepository userDao;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	VerificationTokenRepository tokenDao;
+	
+	public User createUserAccount(UserFormDTO userDTO) {
+		User registered = null;
+		try {
+			registered = registerUser(userDTO);
+		} catch (EmailExistsException e) {
+			return null;
+		}    
+		return registered;
+	}
 
 	public User registerUser(UserFormDTO userDto) throws EmailExistsException {
 		
@@ -31,18 +51,16 @@ public class UserService  {
 		User user = new User();
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
-		//user.setPassword(userDto.getPassword());
 		user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-		//user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 		user.setEmail(userDto.getEmail());
-		user.setEnabled(1);
+		user.setEnabled(0);
 		user.setRole("ROLE_USER");
-		userDAO.save(user);
-		return userDAO.save(user);
+		userDao.save(user);
+		return userDao.save(user);
 	}
 	
 	private boolean emailExists(final String email) {
-		 User user = userDAO.findByEmail(email);
+		 User user = userDao.findByEmail(email);
 	        if (user != null) {
 	            return true;
 	        }
@@ -50,8 +68,23 @@ public class UserService  {
 	}
 	
 	   public Optional<User> getUserByID(final long id) {
-	        return userDAO.findById(id);
+	        return userDao.findById(id);
 	    }
 	
+	   public Boolean confirmRegistrationService(String confirmationToken) {
+			VerificationToken verificationToken = tokenDao.findVerificationTokenByToken(confirmationToken);
+			if(verificationToken !=null) {
+				Calendar calendar = Calendar.getInstance();
+				Date todaysDate = new Date(calendar.getTimeInMillis());
+				if (verificationToken.getExpiryDate().after(todaysDate)) {
+					User user = verificationToken.getUser();
+					user.setEnabled(1);
+					userDao.save(user);
+					return true;
+				}
+				
+			}
+			return false;
+		}
 	
-}
+ }

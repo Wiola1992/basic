@@ -3,6 +3,7 @@ package model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,8 +12,8 @@ import javax.persistence.Table;
 public class User {
 	
 	@Id
-	@GeneratedValue
-	private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long user_id;
 	
 	private String firstName;
 	private String lastName;
@@ -21,16 +22,17 @@ public class User {
 	private String password;
 	private String role;
 	private int enabled;
-	private boolean tokenExpired;
+	//private boolean tokenExpired;
 	
 	public User() {
 		super();
+		this.enabled=0;
 	}
 	public long getId() {
-		return id;
+		return user_id;
 	}
 	public void setId(long id) {
-		this.id = id;
+		this.user_id = id;
 	}
 
 	public String getFirstName() {
@@ -70,10 +72,10 @@ public class User {
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
 	}
-	public boolean isTokenExpired() {
+/*	public boolean isTokenExpired() {
 		return tokenExpired;
 	}
 	public void setTokenExpired(boolean tokenExpired) {
 		this.tokenExpired = tokenExpired;
-	}
+	} */
 }

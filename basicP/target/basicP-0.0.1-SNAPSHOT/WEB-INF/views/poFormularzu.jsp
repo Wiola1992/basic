@@ -8,7 +8,10 @@
 </head>
 <body>
  
-	Użytkownik został dodany. 
+ Proces rejestracji przebiegł prawidłowo. 
+  	${inf} </br>
+ 
+	
 	
 	
 	<a href="login"> Zaloguj się.</a>

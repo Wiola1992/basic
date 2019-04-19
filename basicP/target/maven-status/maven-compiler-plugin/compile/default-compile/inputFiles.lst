@@ -3,7 +3,10 @@ C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\DBContext.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\repository\UserRepository.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\WebConfig.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\validation\EmailExistsException.java
+C:\Users\Wiola\git\repository\basicP\src\main\java\repository\VerificationTokenRepository.java
+C:\Users\Wiola\git\repository\basicP\src\main\java\model\VerificationToken.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\controller\FirstController.java
+C:\Users\Wiola\git\repository\basicP\src\main\java\services\DateService.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\validation\PasswordMatches.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\controller\UserController.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\validation\ValidEmail.java
@@ -16,3 +19,4 @@ C:\Users\Wiola\git\repository\basicP\src\main\java\controller\MainController.jav
 C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\SpringRootConfiguration.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\validation\PasswordValidator.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\dto\UserFormDTO.java
+C:\Users\Wiola\git\repository\basicP\src\main\java\services\EmailService.java

@@ -13,6 +13,8 @@
 	</br>
 	<a href="registration"> Zarejestruj się</a>
 	</br>
+	 <a href="logout">Wyloguj się</a>
+	</br>
 	<a href="user"> Widok użytkownika</a>
 	</br>
  	<a href="admin"> Widok administratora</a>
