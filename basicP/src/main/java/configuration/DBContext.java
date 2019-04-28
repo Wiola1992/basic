@@ -25,9 +25,9 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 @EnableJpaRepositories("repository")
 @ComponentScan({"repository", "model"})
 @Configuration
-//@PropertySource({
-//    "classpath:database.properties"
-//})
+@PropertySource({
+   "classpath:database.properties"
+})
 public class DBContext {
 
 	@Autowired
@@ -36,12 +36,13 @@ public class DBContext {
 	@Bean
     public DataSource getDataSource() throws SQLException {
 		MysqlDataSource dataSource = new MysqlDataSource();
-		dataSource.setServerName("localhost");
-		dataSource.setPort(3306);
-		dataSource.setDatabaseName("basic");
-		dataSource.setUser("root");
-		dataSource.setPassword("");
-		dataSource.setServerTimezone("UTC");
+		dataSource.setServerName(env.getProperty("jdbc.serverName"));
+		//dataSource.setPort(3306);
+		dataSource.setPort(Integer.parseInt(env.getProperty("jdbc.port")));
+		dataSource.setDatabaseName(env.getProperty("jdbc.databaseName"));
+		dataSource.setUser(env.getProperty("jdbc.user"));
+		dataSource.setPassword(env.getProperty("jdbc.password"));
+		dataSource.setServerTimezone(env.getProperty("jdbc.serverTimezone"));
 		
         return dataSource;
     } 

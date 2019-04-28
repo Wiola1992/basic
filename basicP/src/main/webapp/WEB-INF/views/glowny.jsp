@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	
 <!DOCTYPE html>
 <html>
@@ -8,16 +9,24 @@
 </head>
 <body>
  
-	Witaj w naszym sklepie internetowym
+	Witaj ${userName} w naszym sklepie internetowym
 	</br>
 	</br>
-	<a href="registration"> Zarejestruj się</a>
+	<c:if test="${empty userName}">
+		<a href="login"> Zaloguj się</a>
+		</br>
+		<a href="registration"> Zarejestruj się</a>
+		</br>
+	</c:if>
 	</br>
-	 <a href="logout">Wyloguj się</a>
+	<c:if test="${not empty userName}">
+		<a href="logout">Wyloguj się</a>
+		</br>
+	</c:if>
+	
+	<a href="user"> Użytkownik</a>
 	</br>
-	<a href="user"> Widok użytkownika</a>
-	</br>
- 	<a href="admin"> Widok administratora</a>
+ 	<a href="admin"> Administrator</a>
  	
 </body>
 </html>

@@ -8,7 +8,9 @@
 </head>
 <body>
  
-	Witaj administratorze :) </br>
+	Witaj administratorze :) 
+	</br>
+	</br>
 	Kliknij <a href="/basicP">tutaj</a> aby powrócić do strony głównej.
 	</br>
  <a href="logout">Wyloguj się </a> 

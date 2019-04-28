@@ -9,7 +9,7 @@
 <body>
  
 
-	
+	${czas} </br>
 	${inf} </br>
 	
 	<a href="login"> Zaloguj się</a>

@@ -8,8 +8,13 @@
 </head>
 <body>
  
-	Witaj użytkowniku :) </br>
+ </br>
+	Witaj ${userName} :) 
+	</br>
+	</br>
+	</br>
 	Kliknij <a href="/basicP">tutaj</a> aby powrócić do strony głównej.
+	</br>
 	</br>
   <a href="logout">Wyloguj się</a>
 </body>

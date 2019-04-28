@@ -1,6 +1,7 @@
 package services;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 import org.springframework.stereotype.Service;
@@ -8,9 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DateService {
 
-	public Date getTodaysDate() {
-		Calendar calendar = Calendar.getInstance();
-		Date todaysDate = new Date(calendar.getTimeInMillis());
-	return todaysDate;
+	public LocalDateTime getTodaysDate() {
+		LocalDateTime todaysDate = LocalDateTime.now();
+		return todaysDate;
 	}
 }

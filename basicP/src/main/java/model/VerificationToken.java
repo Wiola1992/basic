@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class VerificationToken {
 
-	 private static final int EXPIRATION = 60* 60 * 24;
+	 private static final int EXPIRATION = 24;
 	 
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,15 +30,23 @@ public class VerificationToken {
 	    @JoinColumn(nullable = false, name = "user_id")
 	    private User user;
 	     
-	   private Date expiryDate;
+	   private LocalDateTime expiryDate;
+	   private LocalDateTime now;
 	    
-	    public VerificationToken() {
+	    public LocalDateTime getNow() {
+		return now;
+	}
+	public void setNow(LocalDateTime now) {
+		this.now = now;
+	}
+		public VerificationToken() {
 			
 		}
-	    public VerificationToken(User user, Date registrationDate) {
+	    public VerificationToken(User user, LocalDateTime registrationDate) {
 			this.user = user;
 			token = UUID.randomUUID().toString();
 			expiryDate = calculateExpiryDate(registrationDate);
+			this.now = registrationDate;
 		}
 
 	/*	private Date calculateExpiryDate(int expiryTimeInMinutes) {
@@ -47,12 +56,9 @@ public class VerificationToken {
 	        return new Date(cal.getTime().getTime());
 	    }*/
 	    
-	    private Date calculateExpiryDate (Date registrationDate) {
-	    	Calendar calendar = Calendar.getInstance();
-	    	calendar.setTime(registrationDate);
-	    	calendar.add(Calendar.DATE, 1);
-	    	
-	    	 return new Date(calendar.getTimeInMillis());
+	    private LocalDateTime calculateExpiryDate (LocalDateTime registrationDate) {
+	    	LocalDateTime expiryDate = registrationDate.plusHours(EXPIRATION);
+	    	 return expiryDate;
 	    }
 
 		public Long getTokenId() {
@@ -75,12 +81,12 @@ public class VerificationToken {
 			this.user = user;
 		}
 
-		public Date getExpiryDate() {
+		public LocalDateTime getExpiryDate() {
 			return expiryDate;
 		}
 		
-		public void setExpiryDate(Date registrationDate) {
-			Date expiryDate = calculateExpiryDate(registrationDate);
+		public void setExpiryDate(LocalDateTime registrationDate) {
+			LocalDateTime expiryDate = calculateExpiryDate(registrationDate);
 			this.expiryDate = expiryDate;
 		}
 

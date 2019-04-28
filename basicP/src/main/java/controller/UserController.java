@@ -1,6 +1,6 @@
 package controller;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.Valid;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import dto.Login;
 import dto.UserFormDTO;
 import model.User;
 import model.VerificationToken;
@@ -80,7 +81,7 @@ public class UserController {
 		    	model.addAttribute("inf", "Podany email już istnieje w naszej bazie.");
 		    	return  "registrationForm";
 		    } else { 
-		    	Date todaysDate =  dateService.getTodaysDate();
+		    	LocalDateTime todaysDate = LocalDateTime.now();
 		    	VerificationToken verificationToken = new VerificationToken(user, todaysDate);
 		    	tokenDao.save(verificationToken);
 		    	String recipientEmail = userDTO.getEmail();
@@ -101,8 +102,10 @@ public class UserController {
 	public String confirmRegistration(Model model, @RequestParam("token")String confirmationToken) {
 		
 		VerificationToken verificationToken = tokenDao.findVerificationTokenByToken(confirmationToken);
+		LocalDateTime confirmationTime = LocalDateTime.now();
+		//model.addAttribute("czas" , czas);
 		
-		if(userService.confirmRegistrationService(confirmationToken)) {
+		if(userService.confirmRegistrationService(confirmationToken, confirmationTime)) {
 			
 			model.addAttribute("inf", "Rejestracja przebiegła prawidłowo. Konto zostało aktywowane");
 		}
@@ -111,6 +114,23 @@ public class UserController {
 		}
 		return "registrationConfirm";
 		
+	}
+	
+	@RequestMapping(value="/login", method = RequestMethod.GET)
+	public String login(@RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "logout", required = false) String logout, Model model)
+	{
+		String errorMessage = null;
+	//	model.addAttribute("login", new Login()); 
+		if (error != null) {
+			errorMessage = "Niepoprawny login lub hasło!";
+		}
+		if (logout != null) {
+			errorMessage= "Zostałeś wylogowany prawidłowo.";
+		}
+		
+		model.addAttribute("msg", errorMessage);
+		return "login";
 	}
 	
 }

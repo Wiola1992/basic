@@ -1,6 +1,7 @@
 package services;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Optional;
 
@@ -30,6 +31,9 @@ public class UserService  {
 	
 	@Autowired
 	VerificationTokenRepository tokenDao;
+	
+	@Autowired
+	DateService dateService;
 	
 	public User createUserAccount(UserFormDTO userDTO) {
 		User registered = null;
@@ -71,12 +75,10 @@ public class UserService  {
 	        return userDao.findById(id);
 	    }
 	
-	   public Boolean confirmRegistrationService(String confirmationToken) {
+	   public Boolean confirmRegistrationService(String confirmationToken, LocalDateTime confirmationTime) {
 			VerificationToken verificationToken = tokenDao.findVerificationTokenByToken(confirmationToken);
 			if(verificationToken !=null) {
-				Calendar calendar = Calendar.getInstance();
-				Date todaysDate = new Date(calendar.getTimeInMillis());
-				if (verificationToken.getExpiryDate().after(todaysDate)) {
+				if (confirmationTime.isBefore(verificationToken.getExpiryDate())) {
 					User user = verificationToken.getUser();
 					user.setEnabled(1);
 					userDao.save(user);

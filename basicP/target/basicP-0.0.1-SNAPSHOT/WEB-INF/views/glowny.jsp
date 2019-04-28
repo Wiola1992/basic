@@ -8,10 +8,13 @@
 </head>
 <body>
  
-	Witaj w naszym sklepie internetowym
+	Witaj ${userName} w naszym sklepie internetowym
 	</br>
+	
 	</br>
 	<a href="registration"> Zarejestruj się</a>
+	</br>
+	<a href="login"> Zaloguj się</a>
 	</br>
 	 <a href="logout">Wyloguj się</a>
 	</br>

@@ -8,6 +8,7 @@ controller\MainController.class
 services\DateService.class
 model\VerificationToken.class
 repository\UserRepository.class
+dto\Login.class
 model\User.class
 configuration\AppInitializer.class
 configuration\SecurityInitializer.class

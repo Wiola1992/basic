@@ -11,6 +11,7 @@ C:\Users\Wiola\git\repository\basicP\src\main\java\validation\PasswordMatches.ja
 C:\Users\Wiola\git\repository\basicP\src\main\java\controller\UserController.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\validation\ValidEmail.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\AppInitializer.java
+C:\Users\Wiola\git\repository\basicP\src\main\java\dto\Login.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\services\UserService.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\validation\UserAlreadyExistException.java
 C:\Users\Wiola\git\repository\basicP\src\main\java\configuration\SecurityConfig.java
