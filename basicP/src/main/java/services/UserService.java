@@ -13,9 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import dto.NewPasswordForm;
 import dto.UserFormDTO;
+import model.PasswordResetToken;
 import model.User;
 import model.VerificationToken;
+import repository.PasswordResetTokenRepository;
 import repository.UserRepository;
 import repository.VerificationTokenRepository;
 import validation.EmailExistsException;
@@ -31,6 +34,9 @@ public class UserService  {
 	
 	@Autowired
 	VerificationTokenRepository tokenDao;
+	
+	@Autowired
+	PasswordResetTokenRepository tokenResetDao;
 	
 	@Autowired
 	DateService dateService;
@@ -74,6 +80,10 @@ public class UserService  {
 	   public Optional<User> getUserByID(final long id) {
 	        return userDao.findById(id);
 	    }
+	   
+	   public User findUserByEmail(final String email) {
+	        return userDao.findByEmail(email);
+	    }
 	
 	   public Boolean confirmRegistrationService(String confirmationToken, LocalDateTime confirmationTime) {
 			VerificationToken verificationToken = tokenDao.findVerificationTokenByToken(confirmationToken);
@@ -89,4 +99,22 @@ public class UserService  {
 			return false;
 		}
 	
+	   public User resetPasswordUser (String stringResetToken, LocalDateTime now) {
+			PasswordResetToken resetToken = tokenResetDao.findPasswordResetTokenByToken(stringResetToken);
+			if(resetToken !=null) {
+				if (now.isBefore(resetToken.getExpiryDate())) {
+					User user = resetToken.getUser();
+					
+					return user;
+				}
+				
+			}
+			return null;
+		}
+	   
+	 /*  public Boolean saveNewPassword( NewPasswordForm newPasswordForm) {
+		   String password = passwordEncoder.encode(newPasswordForm.getPassword());
+		   
+		   
+	   } */
  }

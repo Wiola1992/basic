@@ -12,9 +12,9 @@
 	${czas} </br>
 	${inf} </br>
 	
-	<a href="login"> Zaloguj się</a>
+	<a href="/basicP/login"> Zaloguj się</a>
 	</br>
-	<a href="registration"> Zarejestruj się</a>
+	<a href="/basicP/registration"> Zarejestruj się</a>
 	</br>
 	<a href="/basicP"> Strona główna</a>
 	

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,10 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
-import dto.Login;
+import dto.EmailForm;
+import dto.NewPasswordForm;
 import dto.UserFormDTO;
+import model.PasswordResetToken;
 import model.User;
 import model.VerificationToken;
+import repository.PasswordResetTokenRepository;
 import repository.UserRepository;
 import repository.VerificationTokenRepository;
 import services.DateService;
@@ -41,6 +45,9 @@ public class UserController {
 	VerificationTokenRepository tokenDao;
 	
 	@Autowired
+	PasswordResetTokenRepository tokenResetDao;
+	
+	@Autowired
 	UserRepository userDao;
 	
 	@Autowired
@@ -48,6 +55,9 @@ public class UserController {
 	
 	@Autowired
 	DateService dateService;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	private static final ConstraintValidatorContext ConstraintValidatorContext = null;
 
@@ -121,9 +131,10 @@ public class UserController {
 			@RequestParam(value = "logout", required = false) String logout, Model model)
 	{
 		String errorMessage = null;
-	//	model.addAttribute("login", new Login()); 
 		if (error != null) {
-			errorMessage = "Niepoprawny login lub hasło!";
+			errorMessage = "Niepoprawny login lub hasło! ";
+			String linkReset =  "link";
+			model.addAttribute("linkResetPassword", linkReset); 
 		}
 		if (logout != null) {
 			errorMessage= "Zostałeś wylogowany prawidłowo.";
@@ -133,6 +144,94 @@ public class UserController {
 		return "login";
 	}
 	
+	@RequestMapping(value="user/resetPassword", method= {RequestMethod.GET})
+	public String resetPassword(Model model) {
+		EmailForm emailDto = new EmailForm();
+		model.addAttribute("emailForm", emailDto);
+		return "emailForm";
+		
+	}
+	
+	@RequestMapping(value="user/resetPassword", method = RequestMethod.POST)
+	public String resetPassword (@ModelAttribute("emailForm") @Valid EmailForm emailDto, BindingResult result, Model model ) {
+		if (result.hasErrors())
+    	{
+    		model.addAttribute("inf", "Error");
+    	}
+		
+		String userEmail = emailDto.getEmail();
+		User user = userService.findUserByEmail(userEmail);
+		String errorMessage = null;
+		if (user == null) {
+			errorMessage = "Podany mail nie istnieje w naszej bazie! ";
+		} else {
+			LocalDateTime resetTime = LocalDateTime.now();
+			PasswordResetToken resetToken = new PasswordResetToken(user, resetTime);
+			tokenResetDao.save(resetToken);
+	    	String message = "W celu zmiany hasła kliknij w poniższy link: " 
+	    			+"http://localhost:8080/basicP/user/resetPassword/confirm?token="
+	    			+ resetToken.getToken();
+	    	if (emailService.sendEmail(userEmail, "Zmiana hasła", message))
+	    	{
+	    		model.addAttribute("inf", "Na podany adres wysłano link umożliwiający zmianę hasła");
+	    	}
+		}
+		
+		model.addAttribute("msg", errorMessage);
+		return "resetPassword";
+	}
+	
+	@RequestMapping(value="user/resetPassword/confirm", method= RequestMethod.GET)
+	public String confirmResetPassword(Model model, @RequestParam("token")String stringResetToken) {
+		
+		
+		
+	//	PasswordResetToken passwordResetToken = tokenResetDao.findPasswordResetTokenByToken(stringResetToken);
+		LocalDateTime now = LocalDateTime.now();
+		User user = userService.resetPasswordUser(stringResetToken, now);
+		if(user!=null) {
+			model.addAttribute("user", user);
+			model.addAttribute("inf", "Podaj nowe hasło");
+			NewPasswordForm newPassword = new NewPasswordForm();
+			//newPassword.setEmail(user.getEmail());
+			model.addAttribute("newPassword", newPassword);
+		}
+		else {
+			model.addAttribute("inf", "Błąd. Upłyneło ponad 24h, token nieaktywny.");
+		}
+		return "newPasswordForm";
+		
+	}
+	
+	
+	@RequestMapping(value="/user/resetPassword/confirm", method=RequestMethod.POST)
+	public String changePassword (Model model, @ModelAttribute("newPassword") @Valid NewPasswordForm newPasswordForm, BindingResult result, 
+			WebRequest request, Errors errors, @RequestParam("token")String stringResetToken ) {
+		 
+		
+			if (result.hasErrors()) {
+				model.addAttribute("inf", "błędy");
+				return "newPasswordForm";
+			} 
+			User userek = userDao.findByEmail(newPasswordForm.getEmail());
+		    if (userek == null) {
+		    	model.addAttribute("inf", "Nie istnieje taki email w bazie. Zarejestruj się");
+		    	return  "registrationForm";
+		    } else {
+		    	
+		    	userek.setPassword(passwordEncoder.encode(newPasswordForm.getPassword()));
+		    	userDao.save(userek);
+		    	
+		    		model.addAttribute("inf", "Hasło zmienione, zaloguj się");
+		    	
+		    }
+		    	
+		    	
+		    return "registrationConfirm";
+	}
+	
+	
+		
 }
 
 

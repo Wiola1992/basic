@@ -16,6 +16,10 @@
  </br>
  </br>
  </br>
+ <c:if test="${not empty linkResetPassword}">
+ 	  <a href="user/resetPassword"> Zmień hasło</a>
+ </c:if>
+ 
     <form name='login' action="login" method='POST'>
         <table>
             <tr>
@@ -36,6 +40,6 @@
   </br>
  <a href="/basicP"> Powrót do strony głównej</a> 
  </br>
-  <a href="/registration"> Zarejestruj się</a>
+  <a href="registration"> Zarejestruj się</a>
 </body>
 </html>
