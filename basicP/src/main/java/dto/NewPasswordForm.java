@@ -9,18 +9,6 @@ import validation.ResetPasswordMatches;
 public class NewPasswordForm {
 	
 	
-	@NotEmpty (message = "Podaj adres email")
-	String email;
-	
-	
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	
 	@Size(min=5, message="Podaj minimum 5 znaków")
 	private String password;
 	private String confirmPassword;

@@ -12,7 +12,7 @@
 <body>
 
  </br>
-<p> Nie pamiętasz hasła? </br>
+<p> Zmiana hasła </br>
 
 </p>
 ${msg}

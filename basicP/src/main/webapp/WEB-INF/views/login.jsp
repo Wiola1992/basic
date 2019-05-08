@@ -15,7 +15,6 @@
  ${msg}
  </br>
  </br>
- </br>
  <c:if test="${not empty linkResetPassword}">
  	  <a href="user/resetPassword"> Zmień hasło</a>
  </c:if>
@@ -25,6 +24,7 @@
             <tr>
                 <td>Email:</td>
                 <td><input type='text' name='username' value=''></td>
+                <div id="username.errors" class="error">username is required!</div>
             </tr>
             <tr>
                 <td>Hasło:</td>

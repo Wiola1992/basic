@@ -17,20 +17,7 @@
 	<form:form method="POST" modelAttribute="newPassword"  > 
 			<table border="1">
 				
-				<tr>
-					<td>
-						Hasło:
-					</td>
-					<td>
-						<form:input path="email"/>
-					</td>
-				  	<td>
-						<c:if test="${pageContext.request.method=='POST'}">
-							<form:errors path="email" />
-							 
-						</c:if>
-					</td>
-				</tr>
+				
 				<tr>
 					<td>
 						Hasło:

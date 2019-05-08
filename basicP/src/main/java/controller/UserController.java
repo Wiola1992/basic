@@ -104,7 +104,6 @@ public class UserController {
 		    	}
 		    }
 		    	
-		    	
 		    return "registrationConfirm";
 	}
 	
@@ -116,7 +115,6 @@ public class UserController {
 		//model.addAttribute("czas" , czas);
 		
 		if(userService.confirmRegistrationService(confirmationToken, confirmationTime)) {
-			
 			model.addAttribute("inf", "Rejestracja przebiegła prawidłowo. Konto zostało aktywowane");
 		}
 		else {
@@ -184,9 +182,6 @@ public class UserController {
 	@RequestMapping(value="user/resetPassword/confirm", method= RequestMethod.GET)
 	public String confirmResetPassword(Model model, @RequestParam("token")String stringResetToken) {
 		
-		
-		
-	//	PasswordResetToken passwordResetToken = tokenResetDao.findPasswordResetTokenByToken(stringResetToken);
 		LocalDateTime now = LocalDateTime.now();
 		User user = userService.resetPasswordUser(stringResetToken, now);
 		if(user!=null) {
@@ -213,7 +208,9 @@ public class UserController {
 				model.addAttribute("inf", "błędy");
 				return "newPasswordForm";
 			} 
-			User userek = userDao.findByEmail(newPasswordForm.getEmail());
+			
+			PasswordResetToken passwordResetToken = tokenResetDao.findPasswordResetTokenByToken(stringResetToken);
+			User userek = passwordResetToken.getUser();
 		    if (userek == null) {
 		    	model.addAttribute("inf", "Nie istnieje taki email w bazie. Zarejestruj się");
 		    	return  "registrationForm";
